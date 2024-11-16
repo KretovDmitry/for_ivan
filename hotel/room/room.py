@@ -1,5 +1,6 @@
 from datetime import date
 from hotel.exceptions import RoomIsAlreadyOccupied, RoomIsAlreadyBooked, InvalidCost
+from typing import Dict
 
 
 class RoomStates:
@@ -8,11 +9,14 @@ class RoomStates:
     BOOKED = 2
 
 
+DEFAULT_COST = 200
+
+
 class Room:
-    def __init__(self, room_number: int):
-        self.__room_number = room_number
-        self.__cost = 200.0
-        self.dates = dict()
+    def __init__(self, room_number: int, cost: float = DEFAULT_COST):
+        self.__room_number: int = room_number
+        self.__cost: float = cost
+        self.dates: Dict = dict()
 
     def occupy(self, d: date = date.today()):
         if self.is_booked(d):

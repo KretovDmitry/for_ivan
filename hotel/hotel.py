@@ -4,6 +4,8 @@ from hotel.room import Room
 from hotel.currency import Dollar
 from typing import List
 
+DEFAULT_COST = 200
+
 
 class Hotel:
     def __init__(self, name: str, num_of_rooms: int):
@@ -37,7 +39,7 @@ class Hotel:
         return len([0 for room in self.__rooms if room.is_occupied(d)]) / len(self.__rooms)
 
     def open(self):
-        self.__rooms = [Room(room_id + 1) for room_id in range(self.__num_of_rooms)]
+        self.__rooms = [Room(room_id + 1, DEFAULT_COST) for room_id in range(self.__num_of_rooms)]
 
     def close(self):
         self.__rooms = []
