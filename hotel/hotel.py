@@ -53,6 +53,10 @@ class Hotel:
     def get_num_of_rooms(self) -> int:
         return self.__num_of_rooms
 
+    def set_room_cost(self, room: int, cost: float):
+        self.validate_room(room)
+        self.__rooms[room - 1].set_cost(cost)
+
     def income(self, d: date = date.today()) -> Dollar:
         return Dollar(sum([room.get_cost() for room in self.__rooms if room.is_occupied(d)]))
 
