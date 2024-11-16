@@ -15,21 +15,15 @@ class Hotel:
         self.open()
 
     def occupy(self, room: int, d: date = date.today()):
-        if room <= 0 or room > self.__num_of_rooms:
-            raise NoSuchRoomError(room)
-
+        self.validate_room(room)
         self.__rooms[room - 1].occupy(d)
 
     def book(self, room: int, d: date = date.today()):
-        if room <= 0 or room > self.__num_of_rooms:
-            raise NoSuchRoomError(room)
-
+        self.validate_room(room)
         self.__rooms[room - 1].book(d)
 
     def free(self, room: int, d: date = date.today()):
-        if room <= 0 or room > self.__num_of_rooms:
-            raise NoSuchRoomError(room)
-
+        self.validate_room(room)
         self.__rooms[room - 1].free(d)
 
     def occupancy_rate(self, d: date = date.today()) -> float:
@@ -59,6 +53,10 @@ class Hotel:
 
     def income(self, d: date = date.today()) -> Dollar:
         return Dollar(sum([room.get_cost() for room in self.__rooms if room.is_occupied(d)]))
+
+    def validate_room(self, room: int):
+        if room <= 0 or room > self.__num_of_rooms:
+            raise NoSuchRoomError(room)
 
     def greeting(self):
         print(f'Welcome to the {self.get_name()} hotel!!!')
